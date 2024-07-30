@@ -14,7 +14,7 @@ func NewRepository(db *sql.DB) *Repository {
 	return &Repository{db}
 }
 
-func (r *Repository) CreateUser(user types.User) error {
+func (r *Repository) Create(user types.User) error {
 	var statement string = "INSERT INTO users (firstName, lastName, email, password), VALUES(?,?,?,?)"
 	_, err := r.db.Exec(statement, user.FirstName, user.LastName, user.Email, user.Password)
 
