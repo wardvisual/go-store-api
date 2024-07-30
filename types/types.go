@@ -9,7 +9,7 @@ type User struct {
 	CreatedAt string `json: "createdAt"`
 }
 
-type UserStore interface {
+type UserRepository interface {
 	FindByEmail(email string) (*User, error)
 	FindById(id int) (*User, error)
 	Create(User) error
