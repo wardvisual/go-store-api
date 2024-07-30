@@ -11,11 +11,11 @@ import (
 )
 
 type Handler struct {
-	store types.UserStore
+	repository types.UserRepository
 }
 
-func NewHandler(store types.UserStore) *Handler {
-	return &Handler{store}
+func NewHandler(repository types.UserRepository) *Handler {
+	return &Handler{repository}
 }
 
 func (h *Handler) RegisterRoutes(router *mux.Router) {
@@ -44,7 +44,7 @@ func (h *Handler) handleRegister(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	err = h.store.Create(types.User{
+	err = h.repository.Create(types.User{
 		FirstName: user.FirstName,
 		LastName:  user.LastName,
 		Email:     user.Email,
