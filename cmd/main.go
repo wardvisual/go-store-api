@@ -9,7 +9,7 @@ import (
 
 func main() {
 
-	server := api.NewAPIServer(fmt.Sprintf(":%s", 4000))
+	server := api.NewAPIServer(fmt.Sprintf(":%s", "4000"), nil)
 
 	if err := server.Run(); err != nil {
 		log.Fatal(err)
