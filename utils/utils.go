@@ -4,7 +4,11 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+
+	"github.com/go-playground/validator/v10"
 )
+
+var Validate = validator.New()
 
 func WriteJSON(w http.ResponseWriter, status int, v any) error {
 	w.Header().Add("Content-Type", "application/json")
@@ -19,7 +23,7 @@ func WriteError(w http.ResponseWriter, status int, err error) {
 
 func ParseJSON(r *http.Request, v any) error {
 	if r.Body == nil {
-		return fmt.Errorf("missing request body")
+		return fmt.Errorf("mMissing request body")
 	}
 
 	return json.NewDecoder(r.Body).Decode(v)
