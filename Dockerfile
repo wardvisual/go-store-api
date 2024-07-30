@@ -1,26 +1,26 @@
 # syntax=docker/dockerfile:1
 
 # Build the application from source
-FROM golang:1.22.0 AS build-stage
-  WORKDIR /app
+FROM golang:1.22.1 AS build-stage
+WORKDIR /app
 
-  COPY go.mod go.sum ./
-  RUN go mod download
+COPY go.mod go.sum ./
+RUN go mod download
 
-  COPY . .
+COPY . .
 
-  RUN CGO_ENABLED=0 GOOS=linux go build -o /api ./cmd/main.go
+RUN CGO_ENABLED=0 GOOS=linux go build -o /api ./cmd/main.go
 
-  # Run the tests in the container
+# Run the tests in the container
 FROM build-stage AS run-test-stage
-  RUN go test -v ./...
+RUN go test -v ./...
 
 # Deploy the application binary into a lean image
 FROM scratch AS build-release-stage
-  WORKDIR /
+WORKDIR /
 
-  COPY --from=build-stage /api /api
+COPY --from=build-stage /api /api
 
-  EXPOSE 4001
+EXPOSE 4001
 
-  ENTRYPOINT ["/api"]
+ENTRYPOINT ["/api"]
