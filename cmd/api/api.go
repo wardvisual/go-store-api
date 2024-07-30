@@ -6,6 +6,7 @@ import (
 	"net/http"
 
 	"github.com/gorilla/mux"
+	"github.com/wardvisual/go-store-api/services/user"
 )
 
 type APIServer struct {
@@ -22,7 +23,12 @@ func NewAPIServer(addr string, db *sql.DB) *APIServer {
 
 func (s *APIServer) Run() error {
 	router := mux.NewRouter()
-	// subrouter = router.NewRoute().Subrouter()
+	subrouter := router.PathPrefix("/api/v1").Subrouter()
+
+	// User Resource
+	userRepository := user.NewRepository(s.db)
+	userrHandler := user.NewHandler(userRepository)
+	userrHandler.RegisterRoutes(subrouter)
 
 	router.PathPrefix("/").Handler(http.FileServer(http.Dir("static")))
 
