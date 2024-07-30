@@ -9,12 +9,12 @@ import (
 )
 
 type DBConfig struct {
-	host                   string
-	port                   string
-	user                   string
-	password               string
-	address                string
-	name                   string
+	Host                   string
+	Port                   string
+	User                   string
+	Password               string
+	Address                string
+	Name                   string
 	JWTSecret              string
 	JWTExpirationInSeconds int64
 }
@@ -25,12 +25,12 @@ func initializeConfig() DBConfig {
 	godotenv.Load()
 
 	return DBConfig{
-		host:                   getEnv("PUBLIC_HOST", "http://localhost"),
-		port:                   getEnv("PORT", "4001"),
-		user:                   getEnv("DB_USER", "root"),
-		password:               getEnv("DB_PASSWORD", "password"),
-		address:                fmt.Sprintf("%s:%s", getEnv("DB_HOST", "127.0.0.1"), getEnv("DB_PORT", "3306")),
-		name:                   getEnv("DB_NAME", "gostore-api"),
+		Host:                   getEnv("PUBLIC_HOST", "http://localhost"),
+		Port:                   getEnv("PORT", "4001"),
+		User:                   getEnv("DB_USER", "root"),
+		Password:               getEnv("DB_PASSWORD", "password"),
+		Address:                fmt.Sprintf("%s:%s", getEnv("DB_HOST", "127.0.0.1"), getEnv("DB_PORT", "3306")),
+		Name:                   getEnv("DB_NAME", "gostore-api"),
 		JWTSecret:              getEnv("JWT_SECRET", "not_a_secret_but_it_should"),
 		JWTExpirationInSeconds: getEnvAsInt("JWT_EXPIRATION_IN_SECONDS", 3600*24*7),
 	}
